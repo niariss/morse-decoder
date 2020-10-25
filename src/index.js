@@ -38,7 +38,55 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+
+    let wordsBolean = expr.split('**********');
+    
+    let lettersBolean = [];
+    let lettersMorse = [];
+    let lettersReadable = [];
+    let wordsReadable = [];
+    
+    for (let j = 0; j < wordsBolean.length; j++) {
+    
+        for (let i = 1; i <= wordsBolean[j].length/10; i++){
+                lettersBolean.push(wordsBolean[j].substring((i-1)*10, i*10));
+    
+            };
+    
+    for (let j = 0; j < lettersBolean.length; j++){
+    
+    
+    
+            for (let i = 1; i <= lettersBolean[j].length/2; i++){
+    
+                let morseSymbol = lettersBolean[j].substring((i-1)*2, i*2);
+    
+                if (morseSymbol === '10'){
+                    lettersMorse.push('.');
+                } else if (morseSymbol === '11'){
+                    lettersMorse.push('-');
+                };
+    
+            
+            };
+            let letterMorse = lettersMorse.join('');
+    
+            let letterReadable = MORSE_TABLE[letterMorse];
+    
+            lettersReadable.push(letterReadable);
+            lettersMorse = [];
+    
+    
+        };
+    
+    wordsReadable.push(lettersReadable.join(''));
+    lettersReadable = [];
+    lettersBolean = [];
+    
+    };
+    
+    return wordsReadable.join(' ')
+    
 }
 
 module.exports = {
